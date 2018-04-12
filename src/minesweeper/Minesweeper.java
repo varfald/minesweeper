@@ -20,10 +20,10 @@ public class Minesweeper {
 	private Minesweeper() {
 		 userInterface = new ConsoleUI();
 
-		Field field = new Field(8, 8, 19);
+		Field field = new Field(9, 9, 10);
 		
 		userInterface.newGameStarted(field);
-		System.out.println(" hra skoncila");
+		
 	}
 
 	
