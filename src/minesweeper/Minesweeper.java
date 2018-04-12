@@ -15,12 +15,12 @@ public class Minesweeper {
 	private UserInterface userInterface;
 
 	/**
-	 * Constructoooooor.
+	 * Constructoooooor.   
 	 */
 	private Minesweeper() {
 		 userInterface = new ConsoleUI();
 
-		Field field = new Field(9, 9, 10);
+		Field field = new Field(8, 8, 19);
 		
 		userInterface.newGameStarted(field);
 		System.out.println(" hra skoncila");
