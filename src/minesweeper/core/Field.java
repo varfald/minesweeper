@@ -51,14 +51,6 @@ public class Field {
 		generate();
 	}
 
-	/**
-	 * Opens tile at specified indeces.
-	 *
-	 * @param row
-	 *            row number
-	 * @param column
-	 *            column number
-	 */
 	public void openTile(int row, int column) {
 		Tile tile = tiles[row][column];
 		if (tile.getState() == Tile.State.CLOSED) {
@@ -100,9 +92,7 @@ public class Field {
 
 	}
 
-	// throw new UnsupportedOperationException("Method markTile not yet
-	// implemented");
-
+	// Ahoj Silvinka, ako sa mas?
 	/**
 	 * Generates playing field.
 	 */
@@ -116,7 +106,7 @@ public class Field {
 		for (int row = 0; row < rowCount; row++) {
 			for (int column = 0; column < columnCount; column++) {
 				if (tiles[row][column] == null) {
-					tiles[row][column] = new Clue( countAdjacentMines (row, column));
+					tiles[row][column] = new Clue(countAdjacentMines(row, column));
 				}
 			}
 		}
@@ -159,12 +149,9 @@ public class Field {
 	}
 
 	private boolean isSolved() {
-		return (rowCount * columnCount - getNumberOf(Tile.State.OPEN)) == getMineCount() ;
-	
-		}
-		
+		return (rowCount * columnCount - getNumberOf(Tile.State.OPEN)) == getMineCount();
 
-	
+	}
 
 	/**
 	 * Returns number of adjacent mines for a tile at specified position in the
@@ -193,6 +180,20 @@ public class Field {
 		}
 
 		return count;
+	}
+
+	private void openAdjacentTiles(int row, int column) {
+		for (int rowOffset = -1; rowOffset <= 1; rowOffset++) {
+			int actRow = row + rowOffset;
+			if (actRow >= 0 && actRow < getRowCount()) {
+				for (int columnOffset = -1; columnOffset <= 1; columnOffset++) {
+					int actColumn = column + columnOffset;
+					if (actColumn >= 0 && actColumn < getColumnCount()) {
+						openTile(actRow, actColumn);
+					}
+				}
+			}
+		}
 	}
 
 	public int getRowCount() {
