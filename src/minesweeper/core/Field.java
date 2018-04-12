@@ -2,6 +2,8 @@ package minesweeper.core;
 
 import java.util.Random;
 
+import minesweeper.core.Tile.State;
+
 /**
  * Field represents playing field and game logic.
  */
@@ -194,6 +196,11 @@ public class Field {
 				}
 			}
 		}
+	}
+
+	public int getRemainingMineCount() {
+		return mineCount - getNumberOf(State.MARKED);
+
 	}
 
 	public int getRowCount() {

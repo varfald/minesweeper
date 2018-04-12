@@ -69,6 +69,7 @@ public class ConsoleUI implements UserInterface {
 	 */
 	@Override
 	public void update() {
+		System.out.println("Zostavajuci pocet min: " + field.getRemainingMineCount());
 		System.out.println("  0 1 2 3 4 5 6 7 8 ");
 		int charBorder = 65;
 		for (int row = 0; row < field.getRowCount(); row++) {
@@ -100,34 +101,54 @@ public class ConsoleUI implements UserInterface {
 	 * Processes user input. Reads line from console and does the action on a
 	 * playing field according to input string.
 	 */
+
 	private void processInput() {
 		System.out.println("Vzor zadania: X – ukoncenie hry, MA1 – oznacenie dlazdice v riadku A a stlpci 1,\r\n"
 				+ "OB4 – odkrytie dlazdice v riadku B a stlpci 4");
 		System.out.println("Zadaj vstup: ");
-		String input = readLine();
-		Pattern pattern = Pattern.compile("([X])|(M([A-I])([1-8]))|(O([A-I])([1-8]))");
+		try {
+			handleInput(readLine());
+		} catch (WrongFormatException e) {
+
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+	private void handleInput(String input) throws WrongFormatException {
+		input = input.toUpperCase();
+		input= input.trim();
+
+		Pattern pattern = Pattern.compile("([X])|(M([A-Z])([0-9]))|(O([A-Z])([0-9]))");
 		Matcher matcher = pattern.matcher(input);
+
 		if (matcher.matches()) {
-			String end = matcher.group(1);
+
 			if (input.charAt(0) == 'X') {
 				System.out.println("Hra bola ukoncena hracom!");
 				System.exit(0);
 			}
 
+			int row = input.charAt(1);
+			row -= 65;
+			int column = Character.getNumericValue(input.charAt(2));
+			if (field.getRowCount() < row) {
+				throw new WrongFormatException("Nie je tolko riadkov!");
+			}
+			if (field.getColumnCount() < column) {
+				throw new WrongFormatException("Nie je tolko stlpcov!");
+			}
+
 			if (input.charAt(0) == 'M') {
-				int row = input.charAt(1);
-				row -= 65;
-				int column = Character.getNumericValue(input.charAt(2));
 				field.markTile(row, column);
 			}
 			if (input.charAt(0) == 'O') {
-				int row = input.charAt(1);
-				row -= 65;
-				int column = Character.getNumericValue(input.charAt(2));
+
 				field.openTile(row, column);
 			}
 
-		}
+		} else
+			throw new WrongFormatException("Nespravne zadany vstup");
+
 	}
 }
-
