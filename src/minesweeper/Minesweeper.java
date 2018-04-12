@@ -20,9 +20,11 @@ public class Minesweeper {
 	private Minesweeper() {
 		 userInterface = new ConsoleUI();
 
-		Field field = new Field(9, 9, 10);
+		Field field = new Field(8, 8, 19);
 		
 		userInterface.newGameStarted(field);
+		Syste.out.printl ("Hra zacala");
+		
 	}
 
 	
