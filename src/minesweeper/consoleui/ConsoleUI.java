@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import minesweeper.BestTimes;
+import minesweeper.Minesweeper;
 import minesweeper.UserInterface;
 import minesweeper.core.Clue;
 import minesweeper.core.Field;
@@ -20,6 +22,7 @@ import minesweeper.core.Tile.State;
 public class ConsoleUI implements UserInterface {
 	/** Playing field. */
 	private Field field;
+	
 
 	/** Input reader. */
 	private BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
@@ -69,6 +72,9 @@ public class ConsoleUI implements UserInterface {
 	 */
 	@Override
 	public void update() {
+		
+		System.out.println("Welcome "+ System.getProperty("user.name")+"!");
+		System.out.println("Cas trvania hry: " + Minesweeper.getPlayingSeconds());
 		System.out.println("Zostavajuci pocet min: " + field.getRemainingMineCount());
 		System.out.println("  0 1 2 3 4 5 6 7 8 ");
 		int charBorder = 65;
